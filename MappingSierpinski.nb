@@ -1,0 +1,502 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     21555,        494]
+NotebookOptionsPosition[     20702,        464]
+NotebookOutlinePosition[     21057,        480]
+CellTagsIndexPosition[     21014,        477]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[StyleBox["Initialization Code",
+ FontSlant->"Plain"]], "Chapter",
+ CellChangeTimes->{3.69265532464075*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"translate", "[", 
+    RowBox[{"item_", ",", "vector_"}], "]"}], ":=", 
+   RowBox[{"GeometricTransformation", "[", 
+    RowBox[{"item", ",", 
+     RowBox[{"TranslationTransform", "[", "vector", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"scale", "[", 
+    RowBox[{"item_", ",", "vector_"}], "]"}], ":=", 
+   RowBox[{"GeometricTransformation", "[", 
+    RowBox[{"item", ",", 
+     RowBox[{"ScalingTransform", "[", "vector", "]"}]}], "]"}]}], ";", 
+  RowBox[{
+   RowBox[{"makeFace", "[", 
+    RowBox[{
+    "pts_", ",", "iterations_", ",", "emptyColor_", ",", "fullColor_"}], 
+    "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "tri", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"tri", "=", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Polygon", "[", "pts", "]"}], ",", 
+         RowBox[{"Cylinder", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"pts", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", 
+             RowBox[{"pts", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", ".025"}], "]"}], 
+         ",", 
+         RowBox[{"Cylinder", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"pts", "[", 
+              RowBox[{"[", "3", "]"}], "]"}], ",", 
+             RowBox[{"pts", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", ".025"}], "]"}], 
+         ",", 
+         RowBox[{"Cylinder", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"pts", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], ",", 
+             RowBox[{"pts", "[", 
+              RowBox[{"[", "3", "]"}], "]"}]}], "}"}], ",", ".025"}], "]"}]}],
+         "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"makeFirstTri", "[", "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", "tempTri", "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"tempTri", "=", 
+           RowBox[{"scale", "[", 
+            RowBox[{"tri", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"1", "/", "2"}], ",", 
+               RowBox[{"1", "/", "2"}], ",", 
+               RowBox[{"1", "/", "2"}]}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"{", 
+           RowBox[{"emptyColor", ",", "tri", ",", "fullColor", ",", 
+            RowBox[{"translate", "[", 
+             RowBox[{"tempTri", ",", 
+              RowBox[{
+               RowBox[{"pts", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], "/", "2"}]}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"translate", "[", 
+             RowBox[{"tempTri", ",", 
+              RowBox[{
+               RowBox[{"pts", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "/", "2"}]}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"translate", "[", 
+             RowBox[{"tempTri", ",", 
+              RowBox[{
+               RowBox[{"pts", "[", 
+                RowBox[{"[", "3", "]"}], "]"}], "/", "2"}]}], "]"}]}], 
+           "}"}]}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"makeNextTri", "[", "triNew_", "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", "tempTri", "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"tempTri", "=", 
+           RowBox[{"scale", "[", 
+            RowBox[{"triNew", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"1", "/", "2"}], ",", 
+               RowBox[{"1", "/", "2"}], ",", 
+               RowBox[{"1", "/", "2"}]}], "}"}]}], "]"}]}], ";", 
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{"emptyColor", ",", "tri", ",", "fullColor", ",", 
+            RowBox[{"translate", "[", 
+             RowBox[{"tempTri", ",", 
+              RowBox[{
+               RowBox[{"pts", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], "/", "2"}]}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"translate", "[", 
+             RowBox[{"tempTri", ",", 
+              RowBox[{
+               RowBox[{"pts", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "/", "2"}]}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"translate", "[", 
+             RowBox[{"tempTri", ",", 
+              RowBox[{
+               RowBox[{"pts", "[", 
+                RowBox[{"[", "3", "]"}], "]"}], "/", "2"}]}], "]"}]}], 
+           "}"}]}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Nest", "[", 
+       RowBox[{"makeNextTri", ",", 
+        RowBox[{"makeFirstTri", "[", "]"}], ",", "iterations"}], "]"}]}]}], 
+    "]"}]}], ";"}]}], "Input",
+ InitializationCell->
+  True,ExpressionUUID->"ba1f2003-3858-4a01-acf0-1f0009f0a1cc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Manipulate", "Chapter",
+ CellChangeTimes->{
+  3.6926553398216457`*^9},ExpressionUUID->"7f7de3ed-1fc0-42e7-96f2-\
+14d200bf5c57"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", "vertices", "}"}], ",", 
+     RowBox[{
+      RowBox[{"vertices", "=", 
+       RowBox[{"N", "@", 
+        RowBox[{"PolyhedronData", "[", 
+         RowBox[{"polyhedron", ",", "\"\<Vertices\>\""}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Graphics3D", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"EdgeForm", "[", "None", "]"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"makeFace", "[", 
+            RowBox[{"#", ",", "n", ",", "White", ",", "White"}], "]"}], "&"}],
+           "/@", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"vertices", "[", 
+                RowBox[{"[", "#", "]"}], "]"}], "&"}], "/@", "#"}], "&"}], "/@", 
+            RowBox[{"PolyhedronData", "[", 
+             RowBox[{"polyhedron", ",", "\"\<Faces\>\""}], "]"}]}], ")"}]}]}],
+         "\[IndentingNewLine]", "}"}], "]"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n", ",", "1", ",", "\"\<iterations\>\""}], "}"}], ",", "0", 
+     ",", "3", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     StyleBox["polyhedron", "TI"], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<CumulatedCube\>\"", ",", "\"\<CumulatedDodecahedron\>\"", ",", 
+       "\"\<CumulatedTetrahedron\>\"", ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Dipyramid\>\"", ",", "3"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Dipyramid\>\"", ",", "5"}], "}"}], ",", 
+       "\"\<DisdyakisDodecahedron\>\"", ",", 
+       "\"\<DisdyakisTriacontahedron\>\"", ",", 
+       "\"\<DodecahedronSmallTriambicIcosahedronCompound\>\"", ",", 
+       "\"\<Echidnahedron\>\"", ",", "\"\<EscherSolid\>\"", ",", 
+       "\"\<GreatIcosahedron\>\"", ",", 
+       "\"\<GyroelongatedSquareDipyramid\>\"", ",", "\"\<Icosahedron\>\"", 
+       ",", "\"\<IcosahedronSixCompound\>\"", ",", 
+       "\"\<IcosahedronFiveCompound\>\"", ",", 
+       "\"\<JessensOrthogonalIcosahedron\>\"", ",", 
+       "\"\<MathematicaPolyhedron\>\"", ",", "\"\<Octahedron\>\"", ",", 
+       "\"\<OctahedronFiveCompound\>\"", ",", 
+       "\"\<OctahedronThreeCompound\>\"", ",", "\"\<PentakisDodecahedron\>\"",
+        ",", "\"\<SmallTriakisOctahedron\>\"", ",", 
+       "\"\<SmallTriambicIcosahedron\>\"", ",", "\"\<SnubDisphenoid\>\"", 
+       ",", "\"\<StellaOctangula\>\"", ",", "\"\<Tetrahedron\>\"", ",", 
+       "\"\<TetrahedronFiveCompound\>\"", ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<TetrahedronFourCompound\>\"", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<TetrahedronFourCompound\>\"", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<TetrahedronFourCompound\>\"", ",", "3"}], "}"}], ",", 
+       "\"\<TetrahedronSixCompound\>\"", ",", 
+       "\"\<TetrahedronThreeCompound\>\"", ",", 
+       "\"\<TetrahedronTwoCompound\>\"", ",", 
+       "\"\<TetrahedronTenCompound\>\"", ",", "\"\<TetrakisHexahedron\>\"", 
+       ",", "\"\<TetrakisHexahedron\>\"", ",", "\"\<TriakisIcosahedron\>\"", 
+       ",", "\"\<TriakisTetrahedron\>\"", ",", 
+       "\"\<TriaugmentedTriangularPrism\>\""}], "}"}]}], "}"}], ",", 
+   RowBox[{"SaveDefinitions", "\[Rule]", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.69230895906328*^9, 3.692308959970601*^9}, {
+   3.6926526426658497`*^9, 3.692652668056697*^9}, {3.692652733104298*^9, 
+   3.6926527333555727`*^9}, {3.692652769984541*^9, 3.692652770455593*^9}, {
+   3.692652832065093*^9, 3.692652866904357*^9}, {3.692652897387795*^9, 
+   3.6926529619368343`*^9}, {3.6926531185776787`*^9, 3.692653121043577*^9}, {
+   3.6926531627409973`*^9, 3.692653164042713*^9}, {3.692653194473501*^9, 
+   3.692653194964991*^9}, {3.692653633204166*^9, 3.692653634077932*^9}, {
+   3.692655342070266*^9, 3.6926553423732557`*^9}, 3.718295254523745*^9, {
+   3.7182954020968533`*^9, 3.718295426445838*^9}, {3.718295505586329*^9, 
+   3.718295524836467*^9}, {3.71829560835732*^9, 
+   3.718295609814945*^9}},ExpressionUUID->"3ff9ef59-cbd9-4eaa-97dd-\
+fa76ae5cfc94"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`n$$ = 0, $CellContext`polyhedron$$ = 
+    "DisdyakisDodecahedron", Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`n$$], 1, "iterations"}, 0, 3, 1}, {
+      Hold[$CellContext`polyhedron$$], {
+      "CumulatedCube", "CumulatedDodecahedron", "CumulatedTetrahedron", {
+       "Dipyramid", 3}, {"Dipyramid", 5}, "DisdyakisDodecahedron", 
+       "DisdyakisTriacontahedron", 
+       "DodecahedronSmallTriambicIcosahedronCompound", "Echidnahedron", 
+       "EscherSolid", "GreatIcosahedron", "GyroelongatedSquareDipyramid", 
+       "Icosahedron", "IcosahedronSixCompound", "IcosahedronFiveCompound", 
+       "JessensOrthogonalIcosahedron", "MathematicaPolyhedron", "Octahedron", 
+       "OctahedronFiveCompound", "OctahedronThreeCompound", 
+       "PentakisDodecahedron", "SmallTriakisOctahedron", 
+       "SmallTriambicIcosahedron", "SnubDisphenoid", "StellaOctangula", 
+       "Tetrahedron", "TetrahedronFiveCompound", {
+       "TetrahedronFourCompound", 1}, {"TetrahedronFourCompound", 2}, {
+       "TetrahedronFourCompound", 3}, "TetrahedronSixCompound", 
+       "TetrahedronThreeCompound", "TetrahedronTwoCompound", 
+       "TetrahedronTenCompound", "TetrakisHexahedron", "TetrakisHexahedron", 
+       "TriakisIcosahedron", "TriakisTetrahedron", 
+       "TriaugmentedTriangularPrism"}}}, Typeset`size$$ = {
+    360., {193., 198.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`n$8789$$ = 
+    0, $CellContext`polyhedron$8790$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`n$$ = 1, $CellContext`polyhedron$$ = 
+        "CumulatedCube"}, "ControllerVariables" :> {
+        Hold[$CellContext`n$$, $CellContext`n$8789$$, 0], 
+        Hold[$CellContext`polyhedron$$, $CellContext`polyhedron$8790$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Block[{$CellContext`vertices}, $CellContext`vertices = N[
+           PolyhedronData[$CellContext`polyhedron$$, "Vertices"]]; Graphics3D[{
+           EdgeForm[None], 
+           Map[$CellContext`makeFace[#, $CellContext`n$$, White, White]& , 
+            Map[Map[Part[$CellContext`vertices, #]& , #]& , 
+             PolyhedronData[$CellContext`polyhedron$$, "Faces"]]]}]], 
+      "Specifications" :> {{{$CellContext`n$$, 1, "iterations"}, 0, 3, 
+         1}, {$CellContext`polyhedron$$, {
+         "CumulatedCube", "CumulatedDodecahedron", "CumulatedTetrahedron", {
+          "Dipyramid", 3}, {"Dipyramid", 5}, "DisdyakisDodecahedron", 
+          "DisdyakisTriacontahedron", 
+          "DodecahedronSmallTriambicIcosahedronCompound", "Echidnahedron", 
+          "EscherSolid", "GreatIcosahedron", "GyroelongatedSquareDipyramid", 
+          "Icosahedron", "IcosahedronSixCompound", "IcosahedronFiveCompound", 
+          "JessensOrthogonalIcosahedron", "MathematicaPolyhedron", 
+          "Octahedron", "OctahedronFiveCompound", "OctahedronThreeCompound", 
+          "PentakisDodecahedron", "SmallTriakisOctahedron", 
+          "SmallTriambicIcosahedron", "SnubDisphenoid", "StellaOctangula", 
+          "Tetrahedron", "TetrahedronFiveCompound", {
+          "TetrahedronFourCompound", 1}, {"TetrahedronFourCompound", 2}, {
+          "TetrahedronFourCompound", 3}, "TetrahedronSixCompound", 
+          "TetrahedronThreeCompound", "TetrahedronTwoCompound", 
+          "TetrahedronTenCompound", "TetrakisHexahedron", 
+          "TetrakisHexahedron", "TriakisIcosahedron", "TriakisTetrahedron", 
+          "TriaugmentedTriangularPrism"}}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{434., {252., 258.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`makeFace[
+         Pattern[$CellContext`pts, 
+          Blank[]], 
+         Pattern[$CellContext`iterations, 
+          Blank[]], 
+         Pattern[$CellContext`emptyColor, 
+          Blank[]], 
+         Pattern[$CellContext`fullColor, 
+          Blank[]]] := Module[{$CellContext`tri}, $CellContext`tri = {
+            Polygon[$CellContext`pts], 
+            Cylinder[{
+              Part[$CellContext`pts, 1], 
+              Part[$CellContext`pts, 2]}, 0.025], 
+            Cylinder[{
+              Part[$CellContext`pts, 3], 
+              Part[$CellContext`pts, 2]}, 0.025], 
+            Cylinder[{
+              Part[$CellContext`pts, 1], 
+              Part[$CellContext`pts, 3]}, 
+             0.025]}; $CellContext`makeFirstTri[] := 
+          Module[{$CellContext`tempTri}, $CellContext`tempTri = \
+$CellContext`scale[$CellContext`tri, {
+               1/2, 1/2, 1/
+                2}]; {$CellContext`emptyColor, $CellContext`tri, \
+$CellContext`fullColor, 
+              $CellContext`translate[$CellContext`tempTri, 
+               Part[$CellContext`pts, 1]/2], 
+              $CellContext`translate[$CellContext`tempTri, 
+               Part[$CellContext`pts, 2]/2], 
+              $CellContext`translate[$CellContext`tempTri, 
+               Part[$CellContext`pts, 3]/2]}]; $CellContext`makeNextTri[
+            Pattern[$CellContext`triNew, 
+             Blank[]]] := 
+          Module[{$CellContext`tempTri}, $CellContext`tempTri = \
+$CellContext`scale[$CellContext`triNew, {
+               1/2, 1/2, 1/
+                2}]; {$CellContext`emptyColor, $CellContext`tri, \
+$CellContext`fullColor, 
+              $CellContext`translate[$CellContext`tempTri, 
+               Part[$CellContext`pts, 1]/2], 
+              $CellContext`translate[$CellContext`tempTri, 
+               Part[$CellContext`pts, 2]/2], 
+              $CellContext`translate[$CellContext`tempTri, 
+               Part[$CellContext`pts, 3]/2]}]; 
+         Nest[$CellContext`makeNextTri, 
+           $CellContext`makeFirstTri[], $CellContext`iterations]], \
+$CellContext`makeFirstTri[] := 
+       Module[{$CellContext`tempTri$}, $CellContext`tempTri$ = \
+$CellContext`scale[$CellContext`tri$8775, {1/2, 1/2, 1/2}]; {
+           GrayLevel[1], $CellContext`tri$8775, 
+           GrayLevel[1], 
+           $CellContext`translate[$CellContext`tempTri$, 
+            Part[{{-0.9428090415820634, 0., 
+              0.6666666666666666}, {-0.9428090415820634, 
+              0., -0.6666666666666666}, {
+              0., -0.9428090415820634, -0.6666666666666666}, {
+              0., -0.9428090415820634, 0.6666666666666666}}, 1]/2], 
+           $CellContext`translate[$CellContext`tempTri$, 
+            Part[{{-0.9428090415820634, 0., 
+              0.6666666666666666}, {-0.9428090415820634, 
+              0., -0.6666666666666666}, {
+              0., -0.9428090415820634, -0.6666666666666666}, {
+              0., -0.9428090415820634, 0.6666666666666666}}, 2]/2], 
+           $CellContext`translate[$CellContext`tempTri$, 
+            Part[{{-0.9428090415820634, 0., 
+              0.6666666666666666}, {-0.9428090415820634, 
+              0., -0.6666666666666666}, {
+              0., -0.9428090415820634, -0.6666666666666666}, {
+              0., -0.9428090415820634, 0.6666666666666666}}, 3]/2]}], 
+       Attributes[$CellContext`tempTri$] = {Temporary}, $CellContext`scale[
+         Pattern[$CellContext`item, 
+          Blank[]], 
+         Pattern[$CellContext`vector, 
+          Blank[]]] := GeometricTransformation[$CellContext`item, 
+         ScalingTransform[$CellContext`vector]], 
+       Attributes[$CellContext`tri$8775] = {Temporary}, $CellContext`tri$8775 = {
+         Polygon[{{-0.9428090415820634, 0., 
+          0.6666666666666666}, {-0.9428090415820634, 
+          0., -0.6666666666666666}, {
+          0., -0.9428090415820634, -0.6666666666666666}, {
+          0., -0.9428090415820634, 0.6666666666666666}}], 
+         Cylinder[{{-0.9428090415820634, 0., 
+          0.6666666666666666}, {-0.9428090415820634, 
+          0., -0.6666666666666666}}, 0.025], 
+         Cylinder[{{
+          0., -0.9428090415820634, -0.6666666666666666}, {-0.9428090415820634,
+           0., -0.6666666666666666}}, 0.025], 
+         Cylinder[{{-0.9428090415820634, 0., 0.6666666666666666}, {
+          0., -0.9428090415820634, -0.6666666666666666}}, 
+          0.025]}, $CellContext`translate[
+         Pattern[$CellContext`item, 
+          Blank[]], 
+         Pattern[$CellContext`vector, 
+          Blank[]]] := GeometricTransformation[$CellContext`item, 
+         TranslationTransform[$CellContext`vector]], $CellContext`makeNextTri[
+        
+         Pattern[$CellContext`triNew$, 
+          Blank[]]] := 
+       Module[{$CellContext`tempTri$}, $CellContext`tempTri$ = \
+$CellContext`scale[$CellContext`triNew$, {1/2, 1/2, 1/2}]; {
+           GrayLevel[1], $CellContext`tri$8775, 
+           GrayLevel[1], 
+           $CellContext`translate[$CellContext`tempTri$, 
+            Part[{{-0.9428090415820634, 0., 
+              0.6666666666666666}, {-0.9428090415820634, 
+              0., -0.6666666666666666}, {
+              0., -0.9428090415820634, -0.6666666666666666}, {
+              0., -0.9428090415820634, 0.6666666666666666}}, 1]/2], 
+           $CellContext`translate[$CellContext`tempTri$, 
+            Part[{{-0.9428090415820634, 0., 
+              0.6666666666666666}, {-0.9428090415820634, 
+              0., -0.6666666666666666}, {
+              0., -0.9428090415820634, -0.6666666666666666}, {
+              0., -0.9428090415820634, 0.6666666666666666}}, 2]/2], 
+           $CellContext`translate[$CellContext`tempTri$, 
+            Part[{{-0.9428090415820634, 0., 
+              0.6666666666666666}, {-0.9428090415820634, 
+              0., -0.6666666666666666}, {
+              0., -0.9428090415820634, -0.6666666666666666}, {
+              0., -0.9428090415820634, 0.6666666666666666}}, 3]/2]}], 
+       Attributes[$CellContext`triNew$] = {Temporary}}; 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.718295269169319*^9, 3.718295276363839*^9}, {
+   3.718295512706541*^9, 3.718295525318892*^9}, 
+   3.718295610465266*^9},ExpressionUUID->"1b80a79e-1767-4f20-8a16-\
+5e7a8a1aef7d"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1189, 801},
+WindowMargins->{{Automatic, 0}, {Automatic, 61}},
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 16, \
+2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 120, 2, 65, "Chapter", "ExpressionUUID" -> \
+"b3a32236-c884-4377-8e45-9627ba67ac1d"],
+Cell[703, 26, 4907, 129, 322, "Input", "ExpressionUUID" -> \
+"ba1f2003-3858-4a01-acf0-1f0009f0a1cc",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5647, 160, 133, 3, 65, "Chapter", "ExpressionUUID" -> \
+"3729206b-dc80-4788-902b-e794c7d8da9a"],
+Cell[CellGroupData[{
+Cell[5805, 167, 4191, 88, 306, "Input", "ExpressionUUID" -> \
+"3ff9ef59-cbd9-4eaa-97dd-fa76ae5cfc94"],
+Cell[9999, 257, 10675, 203, 527, "Output", "ExpressionUUID" -> \
+"1b80a79e-1767-4f20-8a16-5e7a8a1aef7d"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
